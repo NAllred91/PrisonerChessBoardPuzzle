@@ -5,8 +5,8 @@ var _ = require('underscore');
 var FlipACoin = function(Board, PointLocation)
 {
 	Board = _.clone(Board)
-	var colToFlip = whichSet(Board.columns, PointLocation.XCoord);
-	var rowToFlip = whichSet(Board.rows, PointLocation.YCoord);
+	var colToFlip = whichSet(Board.columns, PointLocation.YCoord);
+	var rowToFlip = whichSet(Board.rows, PointLocation.XCoord);
 
 	if(!colToFlip || !rowToFlip)
 	{
@@ -14,11 +14,7 @@ var FlipACoin = function(Board, PointLocation)
 		process.exit();
 	}
 
-	console.log(colToFlip)
-	console.log(rowToFlip)
-
 	var currentOrentation = Board.rows[rowToFlip][colToFlip - 1];
-	console.log(currentOrentation)
 
 	if(currentOrentation === PreviousArrangements.heads)
 	{
@@ -30,6 +26,7 @@ var FlipACoin = function(Board, PointLocation)
 		Board.columns[colToFlip][rowToFlip - 1] = PreviousArrangements.heads;
 		Board.rows[rowToFlip][colToFlip - 1] = PreviousArrangements.heads;
 	}
+	
 	return Board
 }
 
@@ -48,8 +45,8 @@ var whichSet = function(input, PointLocation)
 	// Which parity bit are we going to be counting under?
 	var underWhich = PreviousArrangements.underWhich;
 
-	var isUnderSets = [];
-	var notUnderSets = [];
+	var correctParity = [];
+	var incorrectParity = [];
 	_.each(parityBitSets, function(parityBits)
 	{
 		var countedCoins = 0;
@@ -93,11 +90,11 @@ var whichSet = function(input, PointLocation)
 		{
 			if(parityBits[PointLocation - 1] === underWhich)
 			{
-				notUnderSets.push(parityBits);
+				correctParity.push(parityBits);
 			}
 			else
 			{
-				isUnderSets.push(parityBits);
+				incorrectParity.push(parityBits);
 			}
 			
 		}
@@ -105,62 +102,76 @@ var whichSet = function(input, PointLocation)
 		{
 			if(parityBits[PointLocation - 1] === underWhich)
 			{
-				isUnderSets.push(parityBits);
+				incorrectParity.push(parityBits);
 			}
 			else
 			{
-				notUnderSets.push(parityBits);
+				correctParity.push(parityBits);
 			}
 		}
 	});
 
-	return pickParityBitToChange(isUnderSets, notUnderSets, underWhich);
+	return pickParityBitToChange(correctParity, incorrectParity, underWhich);
 }
 
-var pickParityBitToChange = function(isUnderSets, notUnderSets, underWhich)
+var pickParityBitToChange = function(correctParity, incorrectParity, underWhich)
 {
-	var couldBe = [];
 	var cantBe = [];
-	console.log(isUnderSets)
-	console.log(notUnderSets)
+	var mustBe = [];
 
-	_.each(isUnderSets, function(isUnder)
+	_.each(correctParity, function(isCorrect)
 	{
-		_.each(isUnder, function(orientation, index)
+		_.each(isCorrect, function(orientation, index)
 		{
 			if(orientation === underWhich)
-			{
-				couldBe.push(index);
-			}
-			else
 			{
 				cantBe.push(index);
 			}
 		});
 	});
 
-	_.each(notUnderSets, function(notUnder)
+	_.each(incorrectParity, function(notCorrect)
 	{
-		_.each(notUnder, function(orientation, index)
+		var hasToChange = [];
+		_.each(notCorrect, function(orientation, index)
 		{
 			if(orientation === underWhich)
 			{
-				cantBe.push(index);
+				hasToChange.push(index);
 			}
 			else
 			{
-				couldBe.push(index);
+				cantBe.push(index);
 			}
 		});
+		mustBe.push(hasToChange);
 	});
 
-	couldBe = _.uniq(couldBe);
-	cantBe = _.uniq(cantBe);
-	var toChange = _.difference(couldBe, cantBe);
+	var compactedMustBe = [];
+
+	_.each(mustBe, function(array)
+	{
+		if(compactedMustBe.length === 0)
+		{
+			compactedMustBe = array;
+		}
+		else
+		{
+			compactedMustBe = _.intersection(compactedMustBe, array);
+		}
+	});
+
+ 	cantBe = _.uniq(cantBe);
+ 	var toChange = _.difference(compactedMustBe, cantBe);
 
 	if(toChange.length === 1)
 	{
 		return _.first(toChange) + 1;
+	}
+
+	if(toChange.length === 0)
+	{
+		return _.first(_.difference([0,1,2,3,4,5,6,7], cantBe)) + 1
 	}
 }
 

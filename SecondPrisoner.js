@@ -4,7 +4,6 @@ var _ = require('underscore');
 
 var FindTheSquare = function(Board)
 {
-	console.log(Board)
 	// Used to narraw down where the lucky square is.
 	var possibleRows = [1,2,3,4,5,6,7,8];
 	var possibleColumns = [1,2,3,4,5,6,7,8];
