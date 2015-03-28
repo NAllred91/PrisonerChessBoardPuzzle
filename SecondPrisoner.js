@@ -69,6 +69,17 @@ var FindTheSquare = function(Board)
 			process.exit();
 		}
 
+		// 0 % 0 returns NaN when I expect 0.
+		if(countedRowCoins === 0)
+		{
+			countedRowCoins = 2;
+		}
+
+		if(countedColCoins === 0)
+		{
+			countedColCoins = 2;
+		}
+
 		if(countedRowCoins % 2 === modulesEquals)
 		{
 			_.each(parityBits, function(bit, index)
@@ -76,6 +87,18 @@ var FindTheSquare = function(Board)
 				index = index + 1;
 
 				if(bit !== underWhich)
+				{
+					possibleRows = _.without(possibleRows, index);
+				}
+			});
+		}
+		else
+		{
+			_.each(parityBits, function(bit, index)
+			{
+				index = index + 1;
+
+				if(bit === underWhich)
 				{
 					possibleRows = _.without(possibleRows, index);
 				}
@@ -94,10 +117,24 @@ var FindTheSquare = function(Board)
 				}
 			});
 		}
+		else
+		{
+			_.each(parityBits, function(bit, index)
+			{
+				index = index + 1;
+
+				if(bit === underWhich)
+				{
+					possibleRows = _.without(possibleRows, index);
+				}
+			});
+		}
 	});
 
 	if(possibleRows.length !== 1 && possibleColumns.length !== 1)
 	{
+		console.log(possibleRows)
+		console.log(possibleColumns)
 		console.log("Second prisoner failed to determine the lucky square...");
 		process.exit();
 	}
