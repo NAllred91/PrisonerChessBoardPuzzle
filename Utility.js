@@ -1,5 +1,6 @@
 'use strict';
 
+var PreviousArrangements = require('./PreviousArrangements.js');
 var _ = require('underscore');
 
 var getValidatedBoardAndPointCoords = function(inputLines)
@@ -32,7 +33,7 @@ var getValidatedBoardAndPointCoords = function(inputLines)
 
 		_.each(line, function(letter)
 		{
-			if(letter === '0' || letter === '1')
+			if(letter === PreviousArrangements.heads || letter === PreviousArrangements.tails)
 			{
 				lineArray.push(letter);
 			}
@@ -122,7 +123,7 @@ var printBoardAfterFlip = function(board)
 
 var printSecondPrisonerGuess = function(guessCoordinates, actualCoordinates)
 {
-
+	console.log(guessCoordinates)
 };
 
 exports.getValidatedBoardAndPointCoords = getValidatedBoardAndPointCoords;

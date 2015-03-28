@@ -19,12 +19,12 @@ var pointCoordinates = {
 Utility.printBoardAndPointLocation(board, pointCoordinates);
 
 // Let the first prisoner flip a coin.
-var newBoard = FirstPrisoner.FlipACoin(board, pointCoordinates);
+//var newBoard = FirstPrisoner.FlipACoin(board, pointCoordinates);
 
 // Print the board after the flip.
-Utility.printBoardAfterFlip(newBoard);
+Utility.printBoardAfterFlip(board);
 
-var guessCoordinates = SecondPrisoner.FindTheSquare(newBoard);
+var guessCoordinates = SecondPrisoner.FindTheSquare(board);
 
 // Print the second prisoners guess for where the lucky square is!
 Utility.printSecondPrisonerGuess(guessCoordinates, pointCoordinates);
