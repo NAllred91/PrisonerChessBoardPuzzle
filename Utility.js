@@ -17,7 +17,7 @@ var getValidatedBoardAndPointCoords = function(inputLines)
 		InvalidInput(1);
 	}
 
-	var board = [];
+	var boardArray = [];
 
 	// First 8 lines contain the coins on the board.
 	_.each(_.first(inputLines, 8), function(line)
@@ -42,8 +42,44 @@ var getValidatedBoardAndPointCoords = function(inputLines)
 			}
 		});
 
-		board.push(lineArray);
+		boardArray.push(lineArray);
 	});
+
+	var board = {
+		rows:
+		{
+			1: boardArray[0],
+			2: boardArray[1],
+			3: boardArray[2],
+			4: boardArray[3],
+			5: boardArray[4],
+			6: boardArray[5],
+			7: boardArray[6],
+			8: boardArray[7]
+		},
+
+		columns:
+		{
+			1:[],
+			2:[],
+			3:[],
+			4:[],
+			5:[],
+			6:[],
+			7:[],
+			8:[]
+		}
+	};
+
+	_.each(boardArray, function(row)
+	{
+		_.each(row, function(coin, column)
+		{
+			board.columns[column + 1].push(coin)
+		});
+	});
+
+
 
 	var lastLine = _.last(inputLines);
 
@@ -66,6 +102,7 @@ var getValidatedBoardAndPointCoords = function(inputLines)
 		InvalidInput(5);
 	}
 
+
 	return {
 		board: board,
 		XCoord: XCoord,
@@ -75,7 +112,7 @@ var getValidatedBoardAndPointCoords = function(inputLines)
 
 var printBoardAndPointLocation = function(board, XCoord, YCoord)
 {
-
+	console.log(board)
 };
 
 var printBoardAfterFlip = function(board)
