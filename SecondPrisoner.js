@@ -28,21 +28,29 @@ var FindTheSquare = function(Board)
 		var countedRowCoins = 0;
 		var countedColCoins = 0;
 
+		// Go through each of the bits.
 		_.each(parityBits, function(bit, index)
 		{
-			index = index + 1;
-			var countableRowCoins = _.filter(Board.rows[index], function(coin)
+			// Only count the coins that are under the bits
+			// we are concerned with.
+			if(bit === underWhich)
 			{
-				return coin === coinOrientation;
-			});
+				index = index + 1;
 
-			var countableColCoins = _.filter(Board.columns[index], function(coin)
-			{
-				return coin === coinOrientation;
-			});
+				// See how many countable coins are in that row and column.
+				var countableRowCoins = _.filter(Board.rows[index], function(coin)
+				{
+					return coin === coinOrientation;
+				});
 
-			countedRowCoins = countedRowCoins + countableRowCoins.length;
-			countedColCoins = countedColCoins + countableColCoins.length;
+				var countableColCoins = _.filter(Board.columns[index], function(coin)
+				{
+					return coin === coinOrientation;
+				});
+
+				countedRowCoins = countedRowCoins + countableRowCoins.length;
+				countedColCoins = countedColCoins + countableColCoins.length;
+			}
 		});
 
 		var modulesEquals;
