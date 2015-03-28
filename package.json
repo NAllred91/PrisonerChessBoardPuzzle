@@ -1,6 +1,7 @@
 {
   "name": "PrisonerChessBoardSolution",
   "dependencies": {
+    "prompt": "^0.2.14",
     "underscore": "^1.7.0"
   },
   "private": "true"
