@@ -79,10 +79,7 @@ else
 			{
 				success = start(Utility.generateTestInputData());
 				count = count + 1;
-				if(count % 1000 === 0)
-				{
-					success = false;
-				}
+				console.log(count)
 			}
 		}
 
