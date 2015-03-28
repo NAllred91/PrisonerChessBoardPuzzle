@@ -4,3 +4,8 @@ A jailor presents a puzzle to two prisoners.  The jailor has an 8x8 chess board 
 
 #Input File
 The input file should contain 8 lines of text, each 8 characters long, containing only 'o' and 'x' characters.  The final line of the input file contains two numbers indicating the row and then column.
+
+#Running
+node PrisonerChessBoardPuzzle.js {input file}
+
+input file is not required.
