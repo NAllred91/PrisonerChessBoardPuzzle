@@ -69,17 +69,6 @@ var FindTheSquare = function(Board)
 			process.exit();
 		}
 
-		// 0 % 0 returns NaN when I expect 0.
-		if(countedRowCoins === 0)
-		{
-			countedRowCoins = 2;
-		}
-
-		if(countedColCoins === 0)
-		{
-			countedColCoins = 2;
-		}
-
 		if(countedRowCoins % 2 === modulesEquals)
 		{
 			_.each(parityBits, function(bit, index)
@@ -107,6 +96,7 @@ var FindTheSquare = function(Board)
 
 		if(countedColCoins % 2 === modulesEquals)
 		{
+			console.log(countedColCoins)
 			_.each(parityBits, function(bit, index)
 			{
 				index = index + 1;
@@ -125,7 +115,7 @@ var FindTheSquare = function(Board)
 
 				if(bit === underWhich)
 				{
-					possibleRows = _.without(possibleRows, index);
+					possibleColumns = _.without(possibleColumns, index);
 				}
 			});
 		}
