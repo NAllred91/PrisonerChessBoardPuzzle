@@ -1,0 +1,7 @@
+{
+  "name": "PrisonerChessBoardSolution",
+  "dependencies": {
+    "underscore": "^1.7.0"
+  },
+  "private": "true"
+}
