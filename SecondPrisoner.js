@@ -4,6 +4,7 @@ var _ = require('underscore');
 
 var FindTheSquare = function(Board)
 {
+	console.log(Board)
 	// Used to narraw down where the lucky square is.
 	var possibleRows = [1,2,3,4,5,6,7,8];
 	var possibleColumns = [1,2,3,4,5,6,7,8];
@@ -96,7 +97,6 @@ var FindTheSquare = function(Board)
 
 		if(countedColCoins % 2 === modulesEquals)
 		{
-			console.log(countedColCoins)
 			_.each(parityBits, function(bit, index)
 			{
 				index = index + 1;
@@ -123,8 +123,6 @@ var FindTheSquare = function(Board)
 
 	if(possibleRows.length !== 1 && possibleColumns.length !== 1)
 	{
-		console.log(possibleRows)
-		console.log(possibleColumns)
 		console.log("Second prisoner failed to determine the lucky square...");
 		process.exit();
 	}

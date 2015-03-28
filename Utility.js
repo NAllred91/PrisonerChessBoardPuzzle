@@ -118,7 +118,7 @@ var printBoardAndPointLocation = function(board, XCoord, YCoord)
 
 var printBoardAfterFlip = function(board)
 {
-
+	console.log(board)
 };
 
 var printSecondPrisonerGuess = function(guessCoordinates, actualCoordinates)
