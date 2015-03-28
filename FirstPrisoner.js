@@ -26,8 +26,14 @@ var FlipACoin = function(Board, PointLocation)
 		Board.columns[colToFlip][rowToFlip - 1] = PreviousArrangements.heads;
 		Board.rows[rowToFlip][colToFlip - 1] = PreviousArrangements.heads;
 	}
-	
-	return Board
+
+	return {
+		board: Board,
+		coordinates: {
+			XCoord: rowToFlip,
+			YCoord: colToFlip
+		}
+	};
 }
 
 var whichSet = function(input, PointLocation)
